@@ -1,0 +1,132 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 12, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  animation: fade-in 0.15s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 32px 28px 26px;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.7);
+}
+
+.modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 22px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.modal__close:hover {
+  color: var(--text-primary);
+  background: var(--surface-raised);
+}
+
+.modal__eyebrow {
+  font-family: var(--font-data);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 14px;
+}
+
+.modal__heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal__sub {
+  margin-top: 10px;
+  font-size: 13.5px;
+}
+
+.modal__form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__field {
+  display: block;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.modal__field span {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.modal__field input {
+  width: 100%;
+  background: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 7px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+}
+
+.modal__field input:focus-visible {
+  border-color: var(--signal);
+}
+
+.modal__submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.modal__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.modal__message {
+  font-size: 13px;
+  margin: 0;
+}
+
+.modal__message--success {
+  color: var(--signal);
+}
+
+.modal__message--error {
+  color: var(--down);
+}
+
+.modal__footnote {
+  margin-top: 20px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  opacity: 0.75;
+  text-align: center;
+}

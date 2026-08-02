@@ -1,0 +1,129 @@
+.how {
+  padding: 88px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.how__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .how__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.how__eyebrow {
+  font-family: var(--font-data);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: 16px;
+}
+
+.how__heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  max-width: 20ch;
+}
+
+.how__body {
+  margin-top: 18px;
+  font-size: 15.5px;
+  max-width: 42ch;
+}
+
+.how__list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.how__list li {
+  display: flex;
+  gap: 14px;
+  font-size: 14.5px;
+  color: var(--text-primary);
+  align-items: baseline;
+}
+
+.how__list li span {
+  font-family: var(--font-data);
+  color: var(--signal);
+  font-size: 12.5px;
+}
+
+.mock {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 26px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+}
+
+.mock__title {
+  font-family: var(--font-data);
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.mock__field {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.mock__field span {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.mock__row {
+  display: flex;
+  gap: 14px;
+}
+
+.mock__row .mock__field {
+  flex: 1;
+}
+
+.mock__input {
+  background: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: var(--font-data);
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.mock__input--select {
+  color: var(--signal);
+}
+
+.mock__input--code {
+  color: var(--text-muted);
+}
+
+.mock__submit {
+  margin-top: 8px;
+  background: var(--signal);
+  color: #05221c;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13.5px;
+  text-align: center;
+  padding: 11px;
+  border-radius: 6px;
+}
