@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './SignInModal.css'
 
 
-const SAMPLE_AUTH_ENDPOINT = '/users'
+const SAMPLE_AUTH_ENDPOINT = 'https://apimanagement-nest-js.onrender.com/users'
 
 export default function SignInModal({ onClose, onSuccess }) {
   const [username, setUsername] = useState('')

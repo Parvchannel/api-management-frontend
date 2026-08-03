@@ -1,4 +1,4 @@
-export const MONITORS_API = '/api-monitors'
+export const MONITORS_API = 'https://apimanagement-nest-js.onrender.com/api-monitors'
 
 export async function fetchMonitor(id) {
   const res = await fetch(`${MONITORS_API}/${id}`)
