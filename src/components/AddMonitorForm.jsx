@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { MONITORS_API, fetchMonitor } from '../lib/monitors.js'
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 const INTERVALS = [
@@ -20,26 +21,44 @@ const initialForm = {
 export default function AddMonitorForm({ onAdd }) {
   const [form, setForm] = useState(initialForm)
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   function update(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     if (!form.name.trim() || !form.url.trim()) {
       setError('Give the check a name and an endpoint URL.')
       return
     }
     setError('')
-    onAdd({
-      name: form.name.trim(),
-      url: form.url.trim(),
-      method: form.method,
-      interval: Number(form.interval),
-      body: form.body.trim(),
-    })
-    setForm(initialForm)
+    setSubmitting(true)
+    try {
+      const res = await fetch(MONITORS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: form.url.trim(),
+          intervalMs: Number(form.interval) * 1000,
+        }),
+      })
+      if (!res.ok) throw new Error('Request failed')
+      const created = await res.json()
+      const monitor = await fetchMonitor(created.id)
+
+      onAdd({
+        name: form.name.trim(),
+        method: form.method,
+        ...monitor,
+      })
+      setForm(initialForm)
+    } catch {
+      setError("Couldn't add the check. Try again in a moment.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const showBody = form.method === 'POST' || form.method === 'PUT' || form.method === 'PATCH'
@@ -104,8 +123,8 @@ export default function AddMonitorForm({ onAdd }) {
           </label>
         )}
 
-        <button className="btn btn--primary add-form__submit" type="submit">
-          Add check
+        <button className="btn btn--primary add-form__submit" type="submit" disabled={submitting}>
+          {submitting ? 'Adding…' : 'Add check'}
         </button>
 
         {error && <p className="add-form__error">{error}</p>}

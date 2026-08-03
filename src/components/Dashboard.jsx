@@ -2,36 +2,24 @@ import { useEffect, useState } from 'react'
 import DashboardHeader from './DashboardHeader.jsx'
 import AddMonitorForm from './AddMonitorForm.jsx'
 import MonitorSearch from './MonitorSearch.jsx'
-import { nextId, seedChecks, simulateCheck } from '../lib/stats.js'
+import { refreshMonitors } from '../lib/monitors.js'
 import './Dashboard.css'
 
 export default function Dashboard({ username, onSignOut }) {
   const [monitors, setMonitors] = useState([])
 
-  function handleAddMonitor(config) {
-    const monitor = {
-      id: nextId('mon'),
-      ...config,
-      checks: seedChecks(28),
-    }
+  function handleAddMonitor(monitor) {
     setMonitors((prev) => [monitor, ...prev])
   }
 
-  // Simulated background checking: every couple seconds, each monitor
-  // that's "due" (based on its configured interval) gets a new result.
-  // No real network calls are made — this is demo data standing in for
-  // what a live monitoring backend would report.
   useEffect(() => {
     const tick = setInterval(() => {
-      setMonitors((prev) =>
-        prev.map((m) => {
-          const due = Math.random() < Math.min(1, 3 / Math.max(m.interval, 3))
-          if (!due) return m
-          const checks = [...m.checks, simulateCheck()].slice(-60)
-          return { ...m, checks }
-        }),
-      )
-    }, 2000)
+      setMonitors((prev) => {
+        if (prev.length === 0) return prev
+        refreshMonitors(prev).then(setMonitors)
+        return prev
+      })
+    }, 5000)
     return () => clearInterval(tick)
   }, [])
 

@@ -6,8 +6,16 @@ function toneFor(bucket) {
   return 'down'
 }
 
+function formatInterval(intervalMs) {
+  if (!intervalMs) return '—'
+  const sec = intervalMs / 1000
+  if (sec < 60) return `${sec}s`
+  if (sec % 60 === 0) return `${sec / 60}m`
+  return `${sec}s`
+}
+
 export default function StatsCard({ monitor }) {
-  const stats = computeStats(monitor.checks)
+  const stats = computeStats(monitor.checkHistory)
 
   return (
     <article className="stats-card">
@@ -18,7 +26,7 @@ export default function StatsCard({ monitor }) {
             {monitor.method} · {monitor.url}
           </p>
         </div>
-        <span className="stats-card__interval">every {monitor.interval}s</span>
+        <span className="stats-card__interval">every {formatInterval(monitor.intervalMs)}</span>
       </div>
 
       {!stats ? (
