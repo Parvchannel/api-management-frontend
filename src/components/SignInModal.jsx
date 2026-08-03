@@ -6,7 +6,7 @@ import './SignInModal.css'
 // in or create a new account on first use.
 const SAMPLE_AUTH_ENDPOINT = 'https://jsonplaceholder.typicode.com/users'
 
-export default function SignInModal({ onClose }) {
+export default function SignInModal({ onClose, onSuccess }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [status, setStatus] = useState('idle') // idle | loading | success | error
@@ -45,6 +45,7 @@ export default function SignInModal({ onClose }) {
 
       setStatus('success')
       setMessage(`Welcome, ${username}. Your account is ready.`)
+      setTimeout(() => onSuccess(username), 700)
     } catch (err) {
       setStatus('error')
       setMessage("Couldn't reach the sample API. Try again in a moment.")
