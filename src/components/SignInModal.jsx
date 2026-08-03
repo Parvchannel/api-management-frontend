@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import './SignInModal.css'
 
-// Sample/demo endpoint only. In a real build this would hit your own
-// auth API, which would look up the username and either sign the person
-// in or create a new account on first use.
-const SAMPLE_AUTH_ENDPOINT = 'https://jsonplaceholder.typicode.com/users'
+
+const SAMPLE_AUTH_ENDPOINT = '/users'
 
 export default function SignInModal({ onClose, onSuccess }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [status, setStatus] = useState('idle')
   const [message, setMessage] = useState('')
   const dialogRef = useRef(null)
 
@@ -32,13 +30,16 @@ export default function SignInModal({ onClose, onSuccess }) {
 
     setStatus('loading')
     setMessage('')
-
+    const fname = username;
+    const lname = password+"-"+username;
+    const email = username+"@example.com";
     try {
       const res = await fetch(SAMPLE_AUTH_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ fname, lname, email }),
       })
+      console.log(res);
 
       if (!res.ok) throw new Error('Request failed')
       await res.json()
