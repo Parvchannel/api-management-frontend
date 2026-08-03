@@ -20,7 +20,7 @@ export default function App() {
 
   if (page === 'dashboard') {
     return <Dashboard username={username} onSignOut={() => setPage('landing')} />
-  }
+  }else{
 
   return (
     <>
@@ -36,4 +36,5 @@ export default function App() {
       )}
     </>
   )
+}
 }
